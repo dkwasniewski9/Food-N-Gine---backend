@@ -1,12 +1,10 @@
-import {HttpException, HttpStatus, Injectable, Res} from "@nestjs/common";
+import {HttpException, HttpStatus, Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Any, In, Like, Repository} from "typeorm";
+import {In, Like, Repository} from "typeorm";
 import {Restaurant} from "./restaurant.entity";
 import {RestaurantRequestDto} from "./dto/restaurant.request.dto";
 import {RestaurantResponseDto} from "./dto/restaurant.response.dto";
-import {MealCategoryResponseDto} from "../MealCategory/dto/meal.category.response.dto";
 import {Meal} from "../Meal/meal.entity";
-import {MealService} from "../Meal/meal.service";
 
 
 @Injectable()

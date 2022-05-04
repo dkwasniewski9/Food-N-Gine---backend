@@ -1,13 +1,9 @@
 import {HttpException, HttpStatus, Injectable} from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { AbstractService } from "../Shared/abstract.service";
-import { Repository } from "typeorm";
-import { ActivityLegalRecord } from "./activity.legal.record.entity";
-import { ActivityLegalRecordRequestDto } from "./dto/activity.legal.record.request.dto";
-import { ActivityLegalRecordResponseDto } from "./dto/activity.legal.record.response.dto";
-import {Address} from "../Address/address.entity";
-import {AddressResponseDto} from "../Address/dto/address.response.dto";
-import {AddressRequestDto} from "../Address/dto/address.request.dto";
+import {InjectRepository} from "@nestjs/typeorm";
+import {Repository} from "typeorm";
+import {ActivityLegalRecord} from "./activity.legal.record.entity";
+import {ActivityLegalRecordRequestDto} from "./dto/activity.legal.record.request.dto";
+import {ActivityLegalRecordResponseDto} from "./dto/activity.legal.record.response.dto";
 
 
 @Injectable()
@@ -47,7 +43,7 @@ export class ActivityLegalRecordService {
         return ActivityLegalRecordResponseDto.of(await this.activityLegalRecordRepository.save(entity));
     }
 
-    async delete(id: number) : Promise<void> {
+    async delete(id: number): Promise<void> {
         const entity = await this.activityLegalRecordRepository.findOne(id);
         if (entity == null) {
             throw new HttpException("Not Found", HttpStatus.NOT_FOUND);

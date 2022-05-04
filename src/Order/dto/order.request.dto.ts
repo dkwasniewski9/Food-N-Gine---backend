@@ -1,4 +1,4 @@
-import {IsDateString, IsNotEmpty} from "class-validator";
+import {IsDateString, IsInt, IsNotEmpty, IsOptional, IsString} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class OrderRequestDto {
@@ -12,9 +12,12 @@ export class OrderRequestDto {
     readonly price: number;
 
     @ApiProperty()
+    @IsString()
+    @IsOptional()
     readonly comment: string;
 
     @ApiProperty()
+    @IsInt()
     @IsNotEmpty()
     readonly clientId: number;
 

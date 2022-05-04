@@ -1,4 +1,4 @@
-import {IsEmail, IsInt, IsNotEmpty, IsString, Max, MaxLength, Min, MIN} from "class-validator";
+import {IsInt, IsNotEmpty, IsString, MaxLength} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
 import {Meal} from "../meal.entity";
 
@@ -25,10 +25,8 @@ export class MealRequestDto {
         example: 15,
     })
     @IsNotEmpty()
+    @IsInt()
     readonly price: number;
-
-    @ApiProperty()
-    readonly photo: string;
 
     @ApiProperty()
     @IsNotEmpty()
