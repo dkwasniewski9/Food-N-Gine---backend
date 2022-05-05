@@ -107,7 +107,6 @@ export class RestaurantService {
         entity.activityLegalRecordId = dto.activityLegalRecordId;
         const response = await this.restaurantRepository.save(entity);
         return RestaurantResponseDto.of(response);
-        // return RestaurantResponseDto.of(await this.restaurantRepository.save(this.restaurantRepository.create(dto)));
     }
 
     async update(id: number, dto: RestaurantRequestDto): Promise<RestaurantResponseDto> {

@@ -34,7 +34,7 @@ export class AddressService {
         entity.doorNumber = dto.doorNumber;
         entity.postCode = dto.postCode;
         entity.city = dto.city;
-        return AddressResponseDto.of(await this.addressRepository.save(this.addressRepository.create(entity)));
+        return AddressResponseDto.of(await this.addressRepository.save(entity));
     }
 
     async update(id: number, dto: AddressRequestDto): Promise<AddressResponseDto> {

@@ -32,7 +32,7 @@ export class WebsiteService {
     async create(dto: WebsiteRequestDto): Promise<WebsiteResponseDto> {
         const entity: Website = new Website();
         entity.details = dto.details;
-        return WebsiteResponseDto.of(await this.websiteRepository.save(this.websiteRepository.create(entity)));
+        return WebsiteResponseDto.of(await this.websiteRepository.save(entity));
     }
 
     async update(id: number, dto: WebsiteRequestDto): Promise<WebsiteResponseDto> {

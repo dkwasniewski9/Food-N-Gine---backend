@@ -35,7 +35,7 @@ export class ActivityLegalRecordService {
         entity.krs = dto.krs;
         entity.regon = dto.regon;
         entity.type = dto.type;
-        return ActivityLegalRecordResponseDto.of(await this.activityLegalRecordRepository.save(this.activityLegalRecordRepository.create(entity)));
+        return ActivityLegalRecordResponseDto.of(await this.activityLegalRecordRepository.save(entity));
     }
 
     async update(id: number, dto: ActivityLegalRecordRequestDto): Promise<ActivityLegalRecordResponseDto> {

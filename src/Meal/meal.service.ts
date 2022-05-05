@@ -71,7 +71,6 @@ export class MealService {
         entity.mealCategoryId = dto.mealCategoryId;
         const response = await this.mealRepository.save(entity);
         return MealResponseDto.of(response);
-        // return MealResponseDto.of(await this.mealRepository.save(this.mealRepository.create(entity)));
     }
 
     async update(id: number, dto: MealRequestDto): Promise<MealResponseDto> {

@@ -32,7 +32,7 @@ export class MealCategoryService {
     async create(dto: MealCategoryRequestDto): Promise<MealCategoryResponseDto> {
         const entity: MealCategory = new MealCategory();
         entity.name = dto.name;
-        return MealCategoryResponseDto.of(await this.mealCategoryRepository.save(this.mealCategoryRepository.create(entity)));
+        return MealCategoryResponseDto.of(await this.mealCategoryRepository.save(entity));
     }
 
     async update(id: number, dto: MealCategoryRequestDto): Promise<MealCategoryResponseDto> {
