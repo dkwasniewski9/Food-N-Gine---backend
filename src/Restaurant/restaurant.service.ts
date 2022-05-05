@@ -83,29 +83,31 @@ export class RestaurantService {
         }) == null) {
             throw new HttpException("Activity Legal Record not found", HttpStatus.NOT_FOUND);
         }
-        // const entity: Restaurant = new Restaurant();
-        // entity.name = dto.name;
-        // entity.phoneNumber = dto.phoneNumber;
-        // entity.mondayCloseHour = dto.mondayCloseHour;
-        // entity.mondayOpenHour = dto.mondayOpenHour;
-        // entity.tuesdayCloseHour = dto.tuesdayCloseHour;
-        // entity.tuesdayOpenHour = dto.tuesdayOpenHour;
-        // entity.wednesdayCloseHour = dto.wednesdayCloseHour;
-        // entity.wednesdayOpenHour = dto.wednesdayOpenHour;
-        // entity.thursdayCloseHour = dto.thursdayCloseHour;
-        // entity.thursdayOpenHour = dto.thursdayOpenHour;
-        // entity.fridayCloseHour = dto.fridayCloseHour;
-        // entity.fridayOpenHour = dto.fridayOpenHour;
-        // entity.saturdayCloseHour = dto.saturdayCloseHour;
-        // entity.saturdayOpenHour = dto.saturdayOpenHour;
-        // entity.sundayCloseHour = dto.sundayCloseHour;
-        // entity.sundayOpenHour = dto.sundayOpenHour;
-        // entity.codes = dto.codes;
-        // entity.websiteId = dto.websiteId;
-        // entity.addressId = dto.addressId;
-        // entity.ownerId = dto.ownerId;
-        // entity.activityLegalRecordId = dto.activityLegalRecordId;
-        return RestaurantResponseDto.of(await this.restaurantRepository.save(this.restaurantRepository.create(dto)));
+        const entity: Restaurant = new Restaurant();
+        entity.name = dto.name;
+        entity.phoneNumber = dto.phoneNumber;
+        entity.mondayCloseHour = dto.mondayCloseHour;
+        entity.mondayOpenHour = dto.mondayOpenHour;
+        entity.tuesdayCloseHour = dto.tuesdayCloseHour;
+        entity.tuesdayOpenHour = dto.tuesdayOpenHour;
+        entity.wednesdayCloseHour = dto.wednesdayCloseHour;
+        entity.wednesdayOpenHour = dto.wednesdayOpenHour;
+        entity.thursdayCloseHour = dto.thursdayCloseHour;
+        entity.thursdayOpenHour = dto.thursdayOpenHour;
+        entity.fridayCloseHour = dto.fridayCloseHour;
+        entity.fridayOpenHour = dto.fridayOpenHour;
+        entity.saturdayCloseHour = dto.saturdayCloseHour;
+        entity.saturdayOpenHour = dto.saturdayOpenHour;
+        entity.sundayCloseHour = dto.sundayCloseHour;
+        entity.sundayOpenHour = dto.sundayOpenHour;
+        entity.codes = dto.codes;
+        entity.websiteId = dto.websiteId;
+        entity.addressId = dto.addressId;
+        entity.ownerId = dto.ownerId;
+        entity.activityLegalRecordId = dto.activityLegalRecordId;
+        const response = await this.restaurantRepository.save(entity);
+        return RestaurantResponseDto.of(response);
+        // return RestaurantResponseDto.of(await this.restaurantRepository.save(this.restaurantRepository.create(dto)));
     }
 
     async update(id: number, dto: RestaurantRequestDto): Promise<RestaurantResponseDto> {
@@ -141,7 +143,27 @@ export class RestaurantService {
         }) == null) {
             throw new HttpException("Activity Legal Record not found", HttpStatus.NOT_FOUND);
         }
-        Object.assign(entity, dto);
+        entity.name = dto.name;
+        entity.phoneNumber = dto.phoneNumber;
+        entity.mondayCloseHour = dto.mondayCloseHour;
+        entity.mondayOpenHour = dto.mondayOpenHour;
+        entity.tuesdayCloseHour = dto.tuesdayCloseHour;
+        entity.tuesdayOpenHour = dto.tuesdayOpenHour;
+        entity.wednesdayCloseHour = dto.wednesdayCloseHour;
+        entity.wednesdayOpenHour = dto.wednesdayOpenHour;
+        entity.thursdayCloseHour = dto.thursdayCloseHour;
+        entity.thursdayOpenHour = dto.thursdayOpenHour;
+        entity.fridayCloseHour = dto.fridayCloseHour;
+        entity.fridayOpenHour = dto.fridayOpenHour;
+        entity.saturdayCloseHour = dto.saturdayCloseHour;
+        entity.saturdayOpenHour = dto.saturdayOpenHour;
+        entity.sundayCloseHour = dto.sundayCloseHour;
+        entity.sundayOpenHour = dto.sundayOpenHour;
+        entity.codes = dto.codes;
+        entity.websiteId = dto.websiteId;
+        entity.addressId = dto.addressId;
+        entity.ownerId = dto.ownerId;
+        entity.activityLegalRecordId = dto.activityLegalRecordId;
         return RestaurantResponseDto.of(await this.restaurantRepository.save(entity));
     }
 

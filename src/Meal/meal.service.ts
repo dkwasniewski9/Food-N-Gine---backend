@@ -69,7 +69,9 @@ export class MealService {
         entity.price = dto.price;
         entity.restaurantId = dto.restaurantId;
         entity.mealCategoryId = dto.mealCategoryId;
-        return MealResponseDto.of(await this.mealRepository.save(this.mealRepository.create(entity)));
+        const response = await this.mealRepository.save(entity);
+        return MealResponseDto.of(response);
+        // return MealResponseDto.of(await this.mealRepository.save(this.mealRepository.create(entity)));
     }
 
     async update(id: number, dto: MealRequestDto): Promise<MealResponseDto> {
