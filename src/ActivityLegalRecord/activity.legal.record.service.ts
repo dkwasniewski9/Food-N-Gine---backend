@@ -30,8 +30,12 @@ export class ActivityLegalRecordService {
     }
 
     async create(dto: ActivityLegalRecordRequestDto): Promise<ActivityLegalRecordResponseDto> {
-        const entity: ActivityLegalRecord = await this.activityLegalRecordRepository.save(this.activityLegalRecordRepository.create(dto));
-        return ActivityLegalRecordResponseDto.of(entity);
+        const entity: ActivityLegalRecord = new ActivityLegalRecord();
+        entity.nip = dto.nip;
+        entity.krs = dto.krs;
+        entity.regon = dto.regon;
+        entity.type = dto.type;
+        return ActivityLegalRecordResponseDto.of(await this.activityLegalRecordRepository.save(this.activityLegalRecordRepository.create(entity)));
     }
 
     async update(id: number, dto: ActivityLegalRecordRequestDto): Promise<ActivityLegalRecordResponseDto> {
@@ -39,7 +43,10 @@ export class ActivityLegalRecordService {
         if (entity == null) {
             throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
         }
-        Object.assign(entity, dto);
+        entity.nip = dto.nip;
+        entity.krs = dto.krs;
+        entity.regon = dto.regon;
+        entity.type = dto.type;
         return ActivityLegalRecordResponseDto.of(await this.activityLegalRecordRepository.save(entity));
     }
 

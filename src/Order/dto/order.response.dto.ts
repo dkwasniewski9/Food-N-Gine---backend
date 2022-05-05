@@ -27,7 +27,7 @@ export class OrderResponseDto {
             client: await UserResponseDto.of(await order.client),
             restaurant: await RestaurantResponseDto.of(await order.restaurant),
             address: await AddressResponseDto.of(await order.address),
-            meals: order.meals,
+            meals: await Promise.all((order.meals).map(meal => MealResponseDto.of(meal))),
             mealsQuantity: order.mealsQuantity
         }
     }

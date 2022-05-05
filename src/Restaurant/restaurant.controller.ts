@@ -19,7 +19,6 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {imageFileFilter} from "../Shared/file-uploading.utils";
 import {diskStorage} from 'multer';
 import path from "path/posix";
-import {MealResponseDto} from "../Meal/dto/meal.response.dto";
 
 @Controller("restaurants")
 @UseGuards(AuthGuard("jwt"))
@@ -56,7 +55,6 @@ export class RestaurantController {
     async create(@Body() dto: RestaurantRequestDto): Promise<RestaurantResponseDto> {
         return this.restaurantService.create(dto);
     }
-
 
 
     @Get()

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AddressModule } from './Address/adress.module';
+import { AddressModule } from './Address/address.module';
 import { MealModule } from './Meal/meal.module';
 import { OrderModule } from './Order/order.module';
 import { RestaurantModule } from './Restaurant/restaurant.module';

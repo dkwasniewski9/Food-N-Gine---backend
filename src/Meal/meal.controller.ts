@@ -1,20 +1,22 @@
 import {
     Body,
-    Controller, Delete,
-    Get, HttpCode, HttpException, HttpStatus,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    HttpStatus,
     Param,
-    Post, Put,
-    Res,
+    Post,
+    Put,
     UploadedFile,
-    UploadedFiles,
     UseGuards,
     UseInterceptors
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { MealService } from "./meal.service";
-import {FileInterceptor, FilesInterceptor} from "@nestjs/platform-express";
+import {AuthGuard} from "@nestjs/passport";
+import {MealService} from "./meal.service";
+import {FileInterceptor} from "@nestjs/platform-express";
 import {imageFileFilter} from "../Shared/file-uploading.utils";
-import { diskStorage } from 'multer';
+import {diskStorage} from 'multer';
 import path from "path/posix";
 import {MealRequestDto} from "./dto/meal.request.dto";
 import {MealResponseDto} from "./dto/meal.response.dto";
@@ -23,8 +25,8 @@ import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 @ApiTags('Meals')
 @Controller('meals')
 @UseGuards(AuthGuard("jwt"))
-export class MealController{
-    constructor (private readonly mealService: MealService) {
+export class MealController {
+    constructor(private readonly mealService: MealService) {
     }
 
     @Post("/image/:id")
@@ -33,7 +35,7 @@ export class MealController{
         FileInterceptor('image', {
             storage: diskStorage({
                 destination: './files',
-                filename: function editFileName (req, file, callback) {
+                filename: function editFileName(req, file, callback) {
                     const name = "meal";
                     const fileExtName = path.extname(file.originalname);
                     const randomName = Array(6)

@@ -30,8 +30,9 @@ export class MealCategoryService {
     }
 
     async create(dto: MealCategoryRequestDto): Promise<MealCategoryResponseDto> {
-        const entity: MealCategory = await this.mealCategoryRepository.save(this.mealCategoryRepository.create(dto));
-        return MealCategoryResponseDto.of(entity);
+        const entity: MealCategory = new MealCategory();
+        entity.name = dto.name;
+        return MealCategoryResponseDto.of(await this.mealCategoryRepository.save(this.mealCategoryRepository.create(entity)));
     }
 
     async update(id: number, dto: MealCategoryRequestDto): Promise<MealCategoryResponseDto> {
@@ -39,7 +40,7 @@ export class MealCategoryService {
         if (entity == null) {
             throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
         }
-        Object.assign(entity, dto);
+        entity.name = dto.name;
         return MealCategoryResponseDto.of(await this.mealCategoryRepository.save(entity));
     }
 

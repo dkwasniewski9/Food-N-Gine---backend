@@ -1,20 +1,23 @@
 import {HttpException, HttpStatus, Injectable} from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Meal } from "./meal.entity";
-import { MealRequestDto } from "./dto/meal.request.dto";
-import { MealResponseDto } from "./dto/meal.response.dto";
+import {InjectRepository} from "@nestjs/typeorm";
+import {Repository} from "typeorm";
+import {Meal} from "./meal.entity";
+import {MealRequestDto} from "./dto/meal.request.dto";
+import {MealResponseDto} from "./dto/meal.response.dto";
 import {MealCategory} from "../MealCategory/meal.category.entity";
-import {MealCategoryResponseDto} from "../MealCategory/dto/meal.category.response.dto";
 import {Restaurant} from "../Restaurant/restaurant.entity";
 
 @Injectable()
-export class MealService{
+export class MealService {
 
 
     constructor(
         @InjectRepository(Meal)
-        private readonly mealRepository: Repository<Meal>
+        private readonly mealRepository: Repository<Meal>,
+        @InjectRepository(MealCategory)
+        private readonly mealCategoryRepository: Repository<MealCategory>,
+        @InjectRepository(Restaurant)
+        private readonly restaurantRepository: Repository<Restaurant>
     ) {
     }
 
@@ -25,8 +28,7 @@ export class MealService{
         }
         try {
             entity.photo = file.filename;
-        }
-        catch(e){
+        } catch (e) {
             throw new HttpException("File Not Found", HttpStatus.NOT_FOUND);
         }
         return MealResponseDto.of(await this.mealRepository.save(entity));
@@ -47,8 +49,27 @@ export class MealService{
     }
 
     async create(dto: MealRequestDto): Promise<MealResponseDto> {
-        const entity: Meal = await this.mealRepository.save(this.mealRepository.create(dto));
-        return MealResponseDto.of(entity);
+        if (await this.mealCategoryRepository.findOne({
+            where: {
+                id: dto.mealCategoryId,
+            }
+        }) == null) {
+            throw new HttpException("Meal Category not found", HttpStatus.NOT_FOUND);
+        }
+        if (await this.restaurantRepository.findOne({
+            where: {
+                id: dto.restaurantId,
+            }
+        }) == null) {
+            throw new HttpException("Restaurant not found", HttpStatus.NOT_FOUND);
+        }
+        const entity: Meal = new Meal();
+        entity.name = dto.name;
+        entity.description = dto.description;
+        entity.price = dto.price;
+        entity.restaurantId = dto.restaurantId;
+        entity.mealCategoryId = dto.mealCategoryId;
+        return MealResponseDto.of(await this.mealRepository.save(this.mealRepository.create(entity)));
     }
 
     async update(id: number, dto: MealRequestDto): Promise<MealResponseDto> {
@@ -56,7 +77,25 @@ export class MealService{
         if (entity == null) {
             throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
         }
-        Object.assign(entity, dto);
+        if (await this.mealCategoryRepository.findOne({
+            where: {
+                id: dto.mealCategoryId,
+            }
+        }) == null) {
+            throw new HttpException("Meal Category not found", HttpStatus.NOT_FOUND);
+        }
+        if (await this.restaurantRepository.findOne({
+            where: {
+                id: dto.restaurantId,
+            }
+        }) == null) {
+            throw new HttpException("Restaurant not found", HttpStatus.NOT_FOUND);
+        }
+        entity.name = dto.name;
+        entity.description = dto.description;
+        entity.price = dto.price;
+        entity.restaurantId = dto.restaurantId;
+        entity.mealCategoryId = dto.mealCategoryId;
         return MealResponseDto.of(await this.mealRepository.save(entity));
     }
 
@@ -69,10 +108,9 @@ export class MealService{
     }
 
     async menu(Id: number) {
-        const entities: Meal[] = await this.mealRepository.find({ where: { restaurantId: Id } });
+        const entities: Meal[] = await this.mealRepository.find({where: {restaurantId: Id}});
         return Promise.all(entities.map(e => MealResponseDto.of(e)));
     }
-
 
 
 }

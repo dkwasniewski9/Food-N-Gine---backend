@@ -1,4 +1,4 @@
-import {IsIn, IsInt, isInt, IsNotEmpty, IsString} from "class-validator";
+import {IsIn, IsInt, isInt, IsNotEmpty, IsOptional, IsString} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class AddressRequestDto {
@@ -14,6 +14,7 @@ export class AddressRequestDto {
 
     @ApiProperty()
     @IsInt()
+    @IsOptional()
     readonly doorNumber: number;
 
     @ApiProperty()

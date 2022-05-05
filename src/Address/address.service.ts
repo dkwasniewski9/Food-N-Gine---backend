@@ -28,8 +28,13 @@ export class AddressService {
     }
 
     async create(dto: AddressRequestDto): Promise<AddressResponseDto> {
-        const entity: Address = await this.addressRepository.save(this.addressRepository.create(dto));
-        return AddressResponseDto.of(entity);
+        const entity: Address = new Address();
+        entity.streetName = dto.streetName
+        entity.houseNumber = dto.houseNumber;
+        entity.doorNumber = dto.doorNumber;
+        entity.postCode = dto.postCode;
+        entity.city = dto.city;
+        return AddressResponseDto.of(await this.addressRepository.save(this.addressRepository.create(entity)));
     }
 
     async update(id: number, dto: AddressRequestDto): Promise<AddressResponseDto> {
@@ -37,7 +42,11 @@ export class AddressService {
         if (entity == null) {
             throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
         }
-        Object.assign(entity, dto);
+        entity.streetName = dto.streetName
+        entity.houseNumber = dto.houseNumber;
+        entity.doorNumber = dto.doorNumber;
+        entity.postCode = dto.postCode;
+        entity.city = dto.city;
         return AddressResponseDto.of(await this.addressRepository.save(entity));
     }
 
